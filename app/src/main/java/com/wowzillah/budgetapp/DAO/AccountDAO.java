@@ -27,7 +27,7 @@ public class AccountDAO {
     private SQLiteDatabase mDatabase;
     private DBHelper mDbHelper;
     private Context mContext;
-    private String[] mAllComumns ={DBHelper.COLUMN_ACCOUNT_ID, DBHelper.COLUMN_TYPENAME, DBHelper.COLUMN_TYPEICON};
+    private String[] mAllColumns ={DBHelper.COLUMN_ACCOUNT_ID, DBHelper.COLUMN_TYPENAME, DBHelper.COLUMN_TYPEICON};
 
     public AccountDAO(Context context){
         this.mContext =  context;
@@ -56,7 +56,7 @@ public class AccountDAO {
         values.put(DBHelper.COLUMN_TYPE, account.getAccountType().getId());
         values.put(DBHelper.COLUMN_BALANCE, account.getAccountBalance());
         long insertId = mDatabase.insert(DBHelper.TABLE_ACCOUNT,null,values);
-        Cursor cursor = mDatabase.query(DBHelper.TABLE_ACCOUNT,mAllComumns,
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_ACCOUNT, mAllColumns,
                 DBHelper.COLUMN_ACCOUNT_ID +" = " +insertId,null,null,null,null);
         cursor.moveToFirst();
         Account newAccount = cursorToAccount(cursor);
@@ -72,7 +72,7 @@ public class AccountDAO {
 
     public List<Account> getAllAccount(){
         List<Account> listAccount = new ArrayList<>();
-        Cursor cursor = mDatabase.query(DBHelper.TABLE_ACCOUNT,mAllComumns, null,null,null,null,null);
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_ACCOUNT, mAllColumns, null,null,null,null,null);
 
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
@@ -89,7 +89,7 @@ public class AccountDAO {
     public Account getAccountById(int Id) {
         Account account = new Account();
 
-        Cursor cursor = mDatabase.query(DBHelper.TABLE_ACCOUNT, mAllComumns,
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_ACCOUNT, mAllColumns,
                 DBHelper.COLUMN_ACCOUNT_ID + " = " + Id, null, null, null, null, null);
         account.setId(Id);
         account.setAccountName(cursor.getString(1));

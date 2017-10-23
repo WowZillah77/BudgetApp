@@ -31,6 +31,9 @@ public class Income {
         this.account = account;
     }
 
+    public Income() {
+    }
+
     public int getId() {
         return id;
     }
