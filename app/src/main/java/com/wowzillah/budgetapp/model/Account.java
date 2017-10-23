@@ -6,21 +6,24 @@ package com.wowzillah.budgetapp.model;
 
 public class Account {
     private int id;
-    private String accoundName;
+    private String accountName;
     private AccountType accountType;
     private double accountBalance;
 
-    public Account(int id, String accoundName, AccountType accountType, double accountBalance) {
+    public Account(int id, String accountName, AccountType accountType, double accountBalance) {
         this.id = id;
-        this.accoundName = accoundName;
+        this.accountName = accountName;
         this.accountType = accountType;
         this.accountBalance = accountBalance;
     }
 
-    public Account(String accoundName, AccountType accountType, double accountBalance) {
-        this.accoundName = accoundName;
+    public Account(String accountName, AccountType accountType, double accountBalance) {
+        this.accountName = accountName;
         this.accountType = accountType;
         this.accountBalance = accountBalance;
+    }
+
+    public Account() {
     }
 
     public int getId() {
@@ -31,12 +34,12 @@ public class Account {
         this.id = id;
     }
 
-    public String getAccoundName() {
-        return accoundName;
+    public String getAccountName() {
+        return accountName;
     }
 
-    public void setAccoundName(String accoundName) {
-        this.accoundName = accoundName;
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public AccountType getAccountType() {

@@ -12,21 +12,23 @@ public class Income {
     private double incomeAmount;
     private IncomeCategory incomeCategory;
     private Date dateIncome;
+    private Account account;
 
-    public Income(int id, String incomeName, double incomeAmount, IncomeCategory incomeCategory, Date dateIncome) {
+    public Income(int id, String incomeName, double incomeAmount, IncomeCategory incomeCategory, Date dateIncome, Account account) {
         this.id = id;
         this.incomeName = incomeName;
         this.incomeAmount = incomeAmount;
         this.incomeCategory = incomeCategory;
         this.dateIncome = dateIncome;
+        this.account = account;
     }
 
-    public Income(String incomeName, double incomeAmount, IncomeCategory incomeCategory, Date dateIncome) {
+    public Income(String incomeName, double incomeAmount, IncomeCategory incomeCategory, Date dateIncome, Account account) {
         this.incomeName = incomeName;
         this.incomeAmount = incomeAmount;
         this.incomeCategory = incomeCategory;
         this.dateIncome = dateIncome;
-        this.id=-1;
+        this.account = account;
     }
 
     public int getId() {
@@ -67,5 +69,13 @@ public class Income {
 
     public void setDateIncome(Date dateIncome) {
         this.dateIncome = dateIncome;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

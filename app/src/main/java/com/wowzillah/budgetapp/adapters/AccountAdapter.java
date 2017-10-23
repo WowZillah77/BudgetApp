@@ -47,7 +47,7 @@ public class AccountAdapter extends ArrayAdapter<Account> {
 
         int picId = res.getIdentifier(account.getAccountType().getTypeIcon(), "drawable", getContext().getPackageName());
         viewHolder.categoryIcon.setImageResource(picId);
-        viewHolder.accountName.setText(account.getAccoundName());
+        viewHolder.accountName.setText(account.getAccountName());
         viewHolder.accountBalance.setText (String.valueOf(account.getAccountBalance()));
 
         return convertView;

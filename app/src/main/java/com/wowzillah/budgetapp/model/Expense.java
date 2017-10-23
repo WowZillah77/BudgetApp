@@ -12,21 +12,23 @@ public class Expense {
     private ExpenseCategory expenseCategory;
     private double expenseAmount;
     private Date expenseDate;
+    private Account account;
 
-    public Expense(int id, String name, ExpenseCategory expenseCategory, double expenseAmount, Date expenseDate) {
+    public Expense(int id, String name, ExpenseCategory expenseCategory, double expenseAmount, Date expenseDate, Account account) {
         this.id = id;
         this.name = name;
         this.expenseCategory = expenseCategory;
         this.expenseAmount = expenseAmount;
         this.expenseDate = expenseDate;
+        this.account = account;
     }
 
-    public Expense(String name, ExpenseCategory expenseCategory, double expenseAmount, Date expenseDate) {
+    public Expense(String name, ExpenseCategory expenseCategory, double expenseAmount, Date expenseDate, Account account) {
         this.name = name;
         this.expenseCategory = expenseCategory;
         this.expenseAmount = expenseAmount;
         this.expenseDate = expenseDate;
-        this.id=-1;
+        this.account = account;
     }
 
     public int getId() {
@@ -67,5 +69,13 @@ public class Expense {
 
     public void setExpenseDate(Date expenseDate) {
         this.expenseDate = expenseDate;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

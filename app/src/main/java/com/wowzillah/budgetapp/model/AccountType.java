@@ -16,6 +16,9 @@ public class AccountType {
         this.typeIcon = typeIcon;
     }
 
+    public AccountType() {
+    }
+
     public AccountType(String name, String typeIcon) {
         this.name = name;
         this.typeIcon = typeIcon;
