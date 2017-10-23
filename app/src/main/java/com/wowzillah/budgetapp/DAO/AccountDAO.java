@@ -86,6 +86,28 @@ public class AccountDAO {
         return listAccount;
     }
 
+    public Account getAccountById(int Id) {
+        Account account = new Account();
+
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_ACCOUNT, mAllComumns,
+                DBHelper.COLUMN_ACCOUNT_ID + " = " + Id, null, null, null, null, null);
+        account.setId(Id);
+        account.setAccountName(cursor.getString(1));
+
+        //get the Account Type
+        int typeId = cursor.getInt(2);
+        AccountTypeDAO dao = new AccountTypeDAO(mContext);
+        AccountType accountType = dao.getAccountTypeById(typeId);
+        if(accountType != null)
+            account.setAccountType(accountType);
+        //End finding type
+
+        account.setAccountBalance(cursor.getFloat(3));
+
+
+        return account;
+    }
+
     private Account cursorToAccount(Cursor cursor){
         Account account = new Account();
         account.setId(cursor.getInt(0));

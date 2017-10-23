@@ -40,6 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_EXPENSECATEGORY ="expense_category";
     public static final String COLUMN_EXPENSECATEGORY_ID = "_id";
     public static final String COLUMN_EXPENSECATEGORY_NAME = "expense_category_name" ;
+    public static final String COLUMN_EXPENSECATEGORY_ICON="expense_category_icon";
     public static final String COLUMN_EXPENSECATEGORY_TOTAL_AMOUNT = "income_category_total_amount";
 
     //column of the income table
@@ -56,6 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_INCOMECATEGORY ="income_category";
     public static final String COLUMN_INCOMECATEGORY_ID = "_id";
     public static final String COLUMN_INCOMECATEGORY_NAME = "income_category_name" ;
+    public static final String COLUMN_INCOMECATEGORY_ICON="income_category_icon";
     public static final String COLUMN_INCOMECATEGORY_TOTAL_AMOUNT = "income_category_Total_Amount";
 
 
@@ -75,6 +77,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TABLE_EXPENSECATEGORY = "CREATE TABLE"+ TABLE_EXPENSECATEGORY + "("
             +COLUMN_EXPENSECATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             +COLUMN_EXPENSECATEGORY_NAME+ " TEXT NOT NULL,"
+            +COLUMN_EXPENSECATEGORY_ICON+ " TEXT NOT NULL,"
             +COLUMN_EXPENSECATEGORY_TOTAL_AMOUNT + " DOUBLE DEFAULT 0.00"
             +");";
 
@@ -83,6 +86,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TABLE_INCOMECATEGORY = "CREATE TABLE"+ TABLE_INCOMECATEGORY + " ("
             +COLUMN_INCOMECATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             +COLUMN_INCOMECATEGORY_NAME+ " TEXT NOT NULL,"
+            +COLUMN_INCOMECATEGORY_ICON+" TEXT NOT NULL,"
             +COLUMN_INCOMECATEGORY_TOTAL_AMOUNT + " DOUBLE DEFAULT 0.00"
             +");";
 
