@@ -88,15 +88,14 @@ public class IncomeCategoryDAO {
     }
 
     public IncomeCategory getIncomeCategoryById(int categoryId) {
-       IncomeCategory incomeCategory = new IncomeCategory();
+
 
         Cursor cursor = mDatabase.query(DBHelper.TABLE_INCOMECATEGORY, mAllComumns,
-                DBHelper.COLUMN_INCOMECATEGORY_ID + " = " + categoryId, null, null, null, null, null);
-        incomeCategory.setId(categoryId);
-       incomeCategory.setName(cursor.getString(1));
-        incomeCategory.setIcon(cursor.getString(2));
-        incomeCategory.setTotalamountIncome(cursor.getFloat(3));
-
+                DBHelper.COLUMN_INCOMECATEGORY_ID + " = ?" ,new String[] { String.valueOf(categoryId)}, null, null, null);
+        if(cursor !=null){
+            cursor.moveToFirst();
+        }
+        IncomeCategory incomeCategory = cursorToIncomeCategory(cursor);
         return incomeCategory;
     }
 

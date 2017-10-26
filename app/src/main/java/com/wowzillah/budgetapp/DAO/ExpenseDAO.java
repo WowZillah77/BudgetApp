@@ -97,37 +97,12 @@ public class ExpenseDAO {
     }
 
     public Expense getExpenseById(int id) {
-       Expense expense = new Expense();
-        Cursor cursor = mDatabase.query(DBHelper.TABLE_EXPENSE, mAllColumns, DBHelper.COLUMN_EXPENSE_ID + " = " + id, null, null, null, null);
-        expense.setId(id);
-       expense.setName(cursor.getString(1));
-      expense.setExpenseAmount(cursor.getFloat(2));
 
-        // get the income Category
-        int categoryId = cursor.getInt(3);
-       ExpenseCategoryDAO expenseCategoryDAO = new ExpenseCategoryDAO(mContext);
-       ExpenseCategory expenseCategory = expenseCategoryDAO.getExpenseCategoryById(categoryId);
-        if (expenseCategory != null)
-            expense.setExpenseCategory(expenseCategory);
-
-        //get the income Date
-        String categoryStringDate = cursor.getString(4);
-        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
-        try {
-            Date myDate = df.parse(categoryStringDate);
-           expense.setExpenseDate(myDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_EXPENSE, mAllColumns, DBHelper.COLUMN_EXPENSE_ID + " = ?",new String[] { String.valueOf(id)},null,null,null);
+        if(cursor !=null){
+            cursor.moveToFirst();
         }
-
-        //get the Account object
-        int accountId = cursor.getInt(5);
-        AccountDAO accountDao = new AccountDAO(mContext);
-        Account account = accountDao.getAccountById(accountId);
-        if (account != null)
-            expense.setAccount(account);
-
-
+        Expense expense = cursorToExpense(cursor);
         return expense;
     }
 

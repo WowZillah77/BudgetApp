@@ -88,14 +88,14 @@ public class ExpenseCategoryDAO {
     }
 
     public ExpenseCategory getExpenseCategoryById(int categoryId) {
-        ExpenseCategory expenseCategory = new ExpenseCategory();
+
 
         Cursor cursor = mDatabase.query(DBHelper.TABLE_EXPENSECATEGORY, mAllComumns,
-                DBHelper.COLUMN_EXPENSECATEGORY_ID + " = " + categoryId, null, null, null, null, null);
-        expenseCategory.setId(categoryId);
-        expenseCategory.setExpenseCategoryName(cursor.getString(1));
-        expenseCategory.setExpenseCategoryIcon(cursor.getString(2));
-        expenseCategory.setCategoryTotalAmount(cursor.getFloat(3));
+                DBHelper.COLUMN_EXPENSECATEGORY_ID + " = ?" , new String[]{ String.valueOf(categoryId)},null,null,null);
+        if(cursor !=null){
+            cursor.moveToFirst();
+        }
+        ExpenseCategory expenseCategory = cursorToExpenseCategory(cursor);
 
         return expenseCategory;
     }

@@ -16,6 +16,11 @@ public class AccountType {
         this.typeIcon = typeIcon;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     public AccountType() {
     }
 

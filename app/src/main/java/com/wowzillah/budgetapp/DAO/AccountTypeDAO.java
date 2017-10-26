@@ -26,7 +26,7 @@ public class AccountTypeDAO {
     private SQLiteDatabase mDatabase;
     private DBHelper mDbHelper;
     private Context mContext;
-    private String[] mAllComumns = {DBHelper.COLUMN_ACCOUNTTYPE_ID, DBHelper.COLUMN_NAME, DBHelper.COLUMN_TYPE, DBHelper.COLUMN_BALANCE};
+    private String[] mAllComumns = {DBHelper.COLUMN_ACCOUNTTYPE_ID, DBHelper.COLUMN_TYPENAME, DBHelper.COLUMN_TYPEICON};
 
     public AccountTypeDAO(Context context) {
         this.mContext = context;
@@ -86,13 +86,17 @@ public class AccountTypeDAO {
     }
 
     public AccountType getAccountTypeById(int typeId) {
-        AccountType accountType = new AccountType();
+
 
         Cursor cursor = mDatabase.query(DBHelper.TABLE_ACCOUNTTYPE, mAllComumns,
-                DBHelper.COLUMN_ACCOUNTTYPE_ID + " = " + typeId, null, null, null, null, null);
-        accountType.setId(typeId);
-        accountType.setName(cursor.getString(1));
-        accountType.setTypeIcon(cursor.getString(2));
+                DBHelper.COLUMN_ACCOUNTTYPE_ID + " = ?", new String[] { String.valueOf(typeId)},null, null, null);
+        if(cursor !=null)
+        {
+            cursor.moveToFirst();
+        }
+        AccountType accountType = cursorToAccountType(cursor);
+
+
 
         return accountType;
     }

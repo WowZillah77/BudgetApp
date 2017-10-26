@@ -20,14 +20,14 @@ import java.util.List;
 
 public class AccountDAO {
 
-    public static final String TAG="CompanyDAO";
+    public static final String TAG="AccountDAO";
 
     // Database Fields
 
     private SQLiteDatabase mDatabase;
     private DBHelper mDbHelper;
     private Context mContext;
-    private String[] mAllColumns ={DBHelper.COLUMN_ACCOUNT_ID, DBHelper.COLUMN_TYPENAME, DBHelper.COLUMN_TYPEICON};
+    private String[] mAllColumns ={DBHelper.COLUMN_ACCOUNT_ID, DBHelper.COLUMN_NAME, DBHelper.COLUMN_TYPE,DBHelper.COLUMN_BALANCE};
 
     public AccountDAO(Context context){
         this.mContext =  context;
@@ -87,22 +87,14 @@ public class AccountDAO {
     }
 
     public Account getAccountById(int Id) {
-        Account account = new Account();
+
 
         Cursor cursor = mDatabase.query(DBHelper.TABLE_ACCOUNT, mAllColumns,
-                DBHelper.COLUMN_ACCOUNT_ID + " = " + Id, null, null, null, null, null);
-        account.setId(Id);
-        account.setAccountName(cursor.getString(1));
-
-        //get the Account Type
-        int typeId = cursor.getInt(2);
-        AccountTypeDAO dao = new AccountTypeDAO(mContext);
-        AccountType accountType = dao.getAccountTypeById(typeId);
-        if(accountType != null)
-            account.setAccountType(accountType);
-        //End finding type
-
-        account.setAccountBalance(cursor.getFloat(3));
+                DBHelper.COLUMN_ACCOUNT_ID + " = ?" , new String[] { String.valueOf(Id)},null,null,null);
+        if(cursor !=null){
+            cursor.moveToFirst();
+        }
+        Account account =cursorToAccount(cursor);
 
 
         return account;
@@ -110,16 +102,19 @@ public class AccountDAO {
 
     private Account cursorToAccount(Cursor cursor){
         Account account = new Account();
-        account.setId(cursor.getInt(0));
-        account.setAccountName(cursor.getString(1));
-        account.setAccountBalance(cursor.getFloat(3));
 
-        //get the type by ID
-        int typeId = cursor.getInt(2);
-        AccountTypeDAO dao = new AccountTypeDAO(mContext);
-        AccountType accountType = dao.getAccountTypeById(typeId);
-        if(accountType != null)
-            account.setAccountType(accountType);
+
+            account.setId(cursor.getInt(0));
+            account.setAccountName(cursor.getString(1));
+            account.setAccountBalance(cursor.getFloat(3));
+
+            //get the type by ID
+            int typeId = cursor.getInt(2);
+            AccountTypeDAO dao = new AccountTypeDAO(mContext);
+            AccountType accountType = dao.getAccountTypeById(typeId);
+            if (accountType != null)
+                account.setAccountType(accountType);
+
 
         return account;
 

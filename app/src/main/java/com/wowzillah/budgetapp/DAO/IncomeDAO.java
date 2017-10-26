@@ -97,37 +97,13 @@ public class IncomeDAO {
     }
 
     public Income getIncomeById(int id) {
-        Income income = new Income();
-        Cursor cursor = mDatabase.query(DBHelper.TABLE_INCOME, mAllColumns, DBHelper.COLUMN_INCOME_ID + " = " + id, null, null, null, null);
-        income.setId(id);
-        income.setIncomeName(cursor.getString(1));
-        income.setIncomeAmount(cursor.getFloat(2));
 
-        // get the income Category
-        int categoryId = cursor.getInt(3);
-        IncomeCategoryDAO incomeCategoryDAO = new IncomeCategoryDAO(mContext);
-        IncomeCategory incomeCategory = incomeCategoryDAO.getIncomeCategoryById(categoryId);
-        if (incomeCategory != null)
-            income.setIncomeCategory(incomeCategory);
-
-        //get the income Date
-        String categoryStringDate = cursor.getString(4);
-        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
-        try {
-            Date myDate = df.parse(categoryStringDate);
-            income.setDateIncome(myDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_INCOME, mAllColumns, DBHelper.COLUMN_INCOME_ID + " = ? " , new String[] { String.valueOf(id)}, null, null, null);
+        if(cursor !=null)
+        {
+            cursor.moveToFirst();
         }
-
-        //get the Account object
-        int accountId = cursor.getInt(5);
-        AccountDAO accountDao = new AccountDAO(mContext);
-        Account account = accountDao.getAccountById(accountId);
-        if (account != null)
-            income.setAccount(account);
-
-
+        Income income = cursorToIncome(cursor);
         return income;
     }
 
